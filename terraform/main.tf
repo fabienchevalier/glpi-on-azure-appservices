@@ -97,10 +97,12 @@ resource "azurerm_mysql_flexible_server" "mysql" {
 
     delegated_subnet_id = azurerm_subnet.mysql_subnet.id
     private_dns_zone_id = azurerm_private_dns_zone.mysql-private-zone.id
+
+    depends_on = [azurerm_private_dns_zone_virtual_network_link.mysql-private-zone-link]
 }
 
 # MySQL Database
-resource "azurerm_mysql_database" "mysql" {
+resource "azurerm_mysql_flexible_database" "mysql" {
     name                = var.mysql_database_name
     resource_group_name = azurerm_resource_group.rg.name
     server_name         = azurerm_mysql_flexible_server.mysql.name
