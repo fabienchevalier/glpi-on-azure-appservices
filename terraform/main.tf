@@ -97,6 +97,7 @@ resource "azurerm_mysql_flexible_server" "mysql" {
 
     delegated_subnet_id = azurerm_subnet.mysql_subnet.id
     private_dns_zone_id = azurerm_private_dns_zone.mysql-private-zone.id
+    zone                = 1 
 
     depends_on = [azurerm_private_dns_zone_virtual_network_link.mysql-private-zone-link]
 }

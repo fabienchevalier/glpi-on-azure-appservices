@@ -5,8 +5,7 @@ output "mysql_server_fqdn" {
 
 output "mysql_database_password" {
     description = "MySQL database password"
-    value       = random_password.mysql_password.result
-    sensitive   = true
+    value       = nonsensitive(random_password.mysql_password.result)
 }
 
 output "app_service_fqdn" {
