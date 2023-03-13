@@ -2,6 +2,8 @@
 
 ![](schema.drawio.png)
 
+:warning: **Ne fonctionne pas en l'état. POC en cours de réalisation**
+
 - [:large\_blue\_circle: GLPI 10.x hébergé sur Azure App Service](#large_blue_circle-glpi-10x-hébergé-sur-azure-app-service)
   - [:clipboard: Prérequis](#clipboard-prérequis)
   - [:wrench: Comment déployer son instance](#wrench-comment-déployer-son-instance)
@@ -21,7 +23,7 @@ terraform init
 terraform apply
 ```
 
-Renseigner le nom de la BDD indiqué dans l'output, ainsi que le mot de passe, avec le login `mysqladmin`.
+Renseigner le nom de la BDD indiqué dans l'output, ainsi que le mot de passe, avec le login `mysqladmin` lors de la première configuration de GLPI.
 
 ## :pushpin: Divers
 
