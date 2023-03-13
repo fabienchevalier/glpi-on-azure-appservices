@@ -25,5 +25,5 @@ Renseigner le nom de la BDD indiqué dans l'output, ainsi que le mot de passe, a
 
 ## :pushpin: Divers
 
-Le plan App Service provisinné est B1, soit approximativement 50 euros par mois. Ne pas oublier de détruire l'infrastructure (`terraform destroy`) une fois les tests validés afin de ne pas engendrer des coûts supplémentaires.
+Le plan App Service provisinné est B1, soit approximativement 50 euros par mois. Ne pas oublier de détruire l'infrastructure (`terraform destroy`) une fois les tests validés afin de ne pas engendrer des coûts supplémentaires. La raison étant que le plan gratuit ne supporte pas l'intégration de l'app à un VPC, ici nécessaire pour rendre innaccessible la base de données en dehors de notre compte Azure.
 
