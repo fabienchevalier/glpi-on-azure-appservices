@@ -69,20 +69,6 @@ resource "azurerm_subnet" "app_service_subnet" {
     }
 }
 
-# Private DNS Zone
-resource "azurerm_private_dns_zone" "mysql-private-zone" {
-    name                = var.mysql_private_zone_name
-    resource_group_name = azurerm_resource_group.rg.name
-}
-
-# Private DNS zone link
-resource "azurerm_private_dns_zone_virtual_network_link" "mysql-private-zone-link" {
-    name                  = var.mysql_private_zone_link_name
-    private_dns_zone_name = azurerm_private_dns_zone.mysql-private-zone.name
-    virtual_network_id    = azurerm_virtual_network.vnet.id
-    resource_group_name   = azurerm_resource_group.rg.name
-}
-
 # MySQL Database server
 resource "azurerm_mysql_flexible_server" "mysql" {
     name                = var.mysql_server_name
@@ -96,10 +82,6 @@ resource "azurerm_mysql_flexible_server" "mysql" {
     sku_name            = "B_Standard_B1s"
 
     delegated_subnet_id = azurerm_subnet.mysql_subnet.id
-    private_dns_zone_id = azurerm_private_dns_zone.mysql-private-zone.id
-    zone                = 1 
-
-    depends_on = [azurerm_private_dns_zone_virtual_network_link.mysql-private-zone-link]
 }
 
 # MySQL Database
@@ -109,6 +91,15 @@ resource "azurerm_mysql_flexible_database" "mysql" {
     server_name         = azurerm_mysql_flexible_server.mysql.name
     charset             = "utf8"
     collation           = "utf8_unicode_ci"
+}
+
+# Firewall rule
+resource "azurerm_mysql_flexible_server_firewall_rule" "fw-mysql" {
+    name                = "AllowAzureIPs"
+    resource_group_name = azurerm_resource_group.rg.name
+    server_name         = azurerm_mysql_flexible_server.mysql.name
+    start_ip_address    = "0.0.0.0"
+    end_ip_address      = "0.0.0.0"
 }
 
 # Azure App Service Plan
